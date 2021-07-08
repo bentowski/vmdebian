@@ -1,16 +1,16 @@
 #!/bin/bash
 archi=`uname -a`
-pCPU=`lscpu | grep "Processeur" | cut -d' ' -f26`
+pCPU=`lscpu | grep "Processeur" | awk '{print $2}'`
 vCPU=`cat /proc/cpuinfo | grep "processor" | wc -l`
-Tmem=`free -m | grep "Mem" | cut -d' ' -f13`
-Umem=`free -m | grep "Mem" | cut -d' ' -f22`
+Tmem=`free -m | grep "Mem" | awk '{print $2}'`
+Umem=`free -m | grep "Mem" | awk '{print $3}'`
 Pmem=`free | grep "Mem" | awk '{print $3/$2 * 100.0}' | cut -c-4`
-Tdisk=`df --total -h | grep "total" | cut -d' ' -f29`
-Udisk=`df --total -h | grep "total" | cut -d' ' -f33 | cut -c-3`
-Pdisk=`df --total -h | grep "total" | cut -d' ' -f39`
-CPUload=`top -n1 | grep "%Cpu" | cut -c1`
+Tdisk=`df --total -h | grep "total" | awk '{print $2}'`
+Udisk=`df --total -h | grep "total" | awk '{print $3}'| cut -c-3`
+Pdisk=`df --total -h | grep "total" | awk '{print $5}'`
+CPUload=`top -n1 | grep "%Cpu" | awk '{print $2}'`
 boot=`who -b | cut -c29-`
-lvm=`lsblk | grep "root" | cut -d' ' -f19`
+lvm=`lsblk | grep "root" | awk '{print $6}'`
 if [ $lvm = "lvm" ]
 then
 	lvm="yes"
@@ -19,8 +19,8 @@ else
 fi
 tcp=`netstat -a | grep "tcp" | grep "ESTABLISHED" | wc -l`
 users=`who | wc -l`
-ip=`ip address show enp0s3 | grep "inet " | cut -d' ' -f6 | cut -d'/' -f1`
-mac=`ip address show enp0s3 | grep "ether" | cut -d' ' -f6`
+ip=`ip address show enp0s3 | grep "inet " | awk '{print $2}' | cut -d'/' -f1`
+mac=`ip address show enp0s3 | grep "ether" | awk '{print $2}'`
 sudo=`ls /var/log/sudo/00/00/ | wc -l`
 touch print
 echo \#Architecture: $archi >> print
