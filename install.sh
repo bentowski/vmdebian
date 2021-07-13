@@ -4,6 +4,7 @@ apt install cron -y
 apt install net-tools -y
 apt install ufw -y
 apt install libpam-cracklib -y
+adduser bbaudry
 addgroup bbaudry42
 addgroup bbaudry bbaudry42
 addgroup bbaudry sudo
