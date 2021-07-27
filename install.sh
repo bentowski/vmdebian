@@ -5,14 +5,15 @@ apt install net-tools -y
 apt install ufw -y
 apt install libpam-cracklib -y
 adduser bbaudry
-addgroup bbaudry42
-addgroup bbaudry bbaudry42
+deluser user42
+addgroup user42
+addgroup bbaudry user42
 addgroup bbaudry sudo
-cp sshd_config /etc/ssh/
-cp login.defs /etc/
-cp sudoers /etc/
-cp common-password /etc/pam.d/
-cp monitoring.sh /root/
+cp srcs/sshd_config /etc/ssh/
+cp srcs/login.defs /etc/
+cp srcs/sudoers /etc/
+cp srcs/common-password /etc/pam.d/
+cp srcs/monitoring.sh /root/
 ufw default deny outgoing
 ufw default deny incoming
 ufw allow 4242
